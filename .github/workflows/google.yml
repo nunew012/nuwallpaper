@@ -1,0 +1,300 @@
+# This workflow will build a docker container, publish it to Google Container Registry, and deploy it to GKE when a release is created
+#
+# To configure this workflow:
+#
+# 1. Ensure that your repository contains the necessary configuration for your Google Kubernetes Engine cluster, including deployment.yml, kustomization.yml, service.yml, etc.
+#
+# 2. Set up secrets in your workspace: GKE_PROJECT with the name of the project and GKE_SA_KEY with the Base64 encoded JSON service account key (https://github.com/GoogleCloudPlatform/github-actions/tree/docs/service-account-key/setup-gcloud#inputs).
+#
+# 3. Change the values for the GKE_ZONE, GKE_CLUSTER, IMAGE, and DEPLOYMENT_NAME environment variables (below).
+#
+# For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke
+
+name: Build and Deploy to GKE
+
+on:
+  release:
+    types: [created]
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: cluster-1    # TODO: update to cluster name
+  GKE_ZONE: us-central1-c   # TODO: update to cluster zone
+  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
+  IMAGE: static-site
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Setup gcloud CLI
+    - uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
+
+    # Configure Docker to use the gcloud command-line tool as a credential
+    # helper for authentication
+    - run: |-
+        gcloud --quiet auth configure-docker
+
+    # Get the GKE credentials so we can deploy to the cluster
+    - uses: google-github-actions/get-gke-credentials@v0.2.1
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        credentials: ${{ secrets.GKE_SA_KEY }}
+
+    # Build the Docker image
+    - name: Build
+      run: |-
+        docker build \
+          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+          .
+
+    # Push the Docker image to Google Container Registry
+    - name: Publish
+      run: |-
+        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+
+    # Set up kustomize
+    - name: Set up Kustomize
+      run: |-
+        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+
+    # Deploy the Docker image to the GKE cluster
+    - name: Deploy
+      run: |-
+        ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
+        ./kustomize build . | kubectl apply -f -
+        kubectl rollout status deployment/$DEPLOYMENT_NAME
+        kubectl get services -o wide
+>
+<+++(ModifiedFeatureslisten)
+[import T-UI  from 'device application drawer',]
+[import Vortex from 'Vortex',
+[import Advanced Tools from 'device application drawer',]
+[import Live Wallpaper from 'device application drawer',]
+[import PowerAmp from 'device application drawer',]
+[import Aura Reader XCamera from 'device application drawer',]
+
+
+Function{
+  CreateProperty{ Diff;
+  value:debug;Dashboard classes:{ local;
+  CreatePropertyelementopertyelement:{
+    Application: 'Vortex',"AdvancedTools",'live wallpaper', "PowerAmp",'Aura ReaderXCamera', "T-UI",}
+    Focus:ApplicationCache  "Features'
+    ApplicationFeatures[scope: 'Device Sensors',"Transparent wallpaper", 'mediaoutputpattern', "real-time (reaction&response) VortexApplicationFeatures,VortexApplicationFeatures",
+    system launcher class home,];
+    PropertyModification:buildtoString(reconstructstruct); 
+    class :global;
+    SettingModifier:system configuration SettingModifier('')string;
+    Function:{  Listen&Watch; 
+    ModifiedFeatureslisten(focus):Vortex.app, 
+    modifiedFeatureProperty(scope): 'media output',"sensors", watch(scope):'sensors', "TempatureChanges(aura_reader.app)Detected", 'ImagesProjected(thermal imaging)',continous"real-time"(home&lock screen)activity, "Home launcher background modification";
+ Method{ 'bind&merge_applicationCache"Features",
+    variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss,nfc,gyroscope,light sensors, step sensors, significant motions, raditions detection, x,y,z axis sensors, gps, location, replace "home application style";
+    PrimaryApplication: Vortex.app;
+    DependancyApplications:
+    array#[ Advanced Tools_app(device sensors),Live wallpaper_app,PowerAmp_app,AuraReader XCamera_app,
+   T-UI; ];
+ };
+    [React&Response(input&output)Method output, input, device sensor connected toolset, multi-directional,' full color spectrum', "environmental aura read graphic display":using device sensors to affect directional change, "emphasizeing" magnetic fields, radio signals, areas of high energy type elements, with a "background" of near by Thermal Energy(aura reader)Elements, "apply wallpaper modification reconstructstruct [scope:"t-ui" background];
+ };
+     FeatureModifierControllerProperty: 'Feature controller menu setting',
+    variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss,nfc,gyroscope,light sensors, step sensors, significant motions, raditions detection, 3d 2d axis sensors, gps, location;
+    }
+    AddModificationstyleMethod: Terminal editor (amole) element in "t-ui" home launcher application "react&respond"feature to "t-ui" launcher as terminal"custom" background ;
+    propertysetting"NuWallpaper".app : "allow" to "display over t-ui background style";
+    value: "t-ui " default device system(>)setting with "vortex wallpaper background modification 'feature' replacing default (amoled black style default background)";
+    GUI property: text characters display over background to ensure user efficient and effective usage;
+  };
+[{("System update}}; >
+  [import React from 'react';]
+[import ReactDOM from 'react-dom';]
+[import ApplicationCache from /android/data/];
+
+Function{
+  CreateProperty{ Diff;
+  Dashboard classes:{ local;
+  CreatePropertyelementopertyelement:{
+    Application: 'Vortex',"AdvancedTools",'live wallpaper', "PowerAmp",'Aura ReaderXCamera'}
+    Focus:ApplicationCache  "Features'
+    ApplicationFeatures[scope: 'Device Sensors',"Transparent wallpaper", 'mediaoutputpattern', "real-time (reaction&response) VortexApplicationFeatures,VortexApplicationFeatures",
+    PropertyModification:buildtoString(reconstructstruct); 
+    class :global;
+    SettingModifier:system configuration SettingModifier('')string;
+    Function:{  Listen&Watch; 
+    ModifiedFeatureslisten(focus):Vortex.app, 
+    modifiedFeatureProperty(scope): 'media output',"sensors", watch(scope):'sensors', "TempatureChanges(aura_reader.app)Detected", 'ImagesProjected(thermal imaging)',continous"real-time"(home&lock screen)activity;
+ Method{ 'bind&merge_applicationCache"Features",
+    variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss,nfc,gyroscope,light sensors, step sensors, significant motions, raditions detection, x,y,z axis sensors, gps, location;
+    PrimaryApplication: Vortex.app;
+    DependancyApplications:
+    array#[ Advanced Tools_app(device sensors),Live wallpaper_app,PowerAmp_app,AuraReader XCamera_app,
+    ];
+ };
+    [React&Response(input&output)Method output, input, device sensor connected toolset, multi-directional,' full color spectrum', "environmental aura read graphic display":using device sensors to affect directional change, "emphasizeing" magnetic fields, radio signals, areas of high energy type elements, with a "background" of near by Thermal Energy(aura reader)Elements, ];
+ };
+     FeatureModifierControllerProperty: 'Feature controller menu setting',
+    variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss,nfc,gyroscope,light sensors, step sensors, significant motions, raditions detection, 3d 2d axis sensors, gps, location;
+    }
+  };
+  }}
+  >
+  <--- 
+  ConstrucFeatureTransitionFeatureTransition;(  TransformStreamConfigurationModifier,TransformStreamConfigurationModifier,
+  <Dashboard classes:{ local;
+  CreatePropertyelementopertyelement:{
+    Application: 'Vortex',"AdvancedTools",'live wallpaper', "PowerAmp",'Aura ReaderXCamera'}
+    Focus:ApplicationCache  "Features'
+    ApplicationFeatures[scope: 'Device Sensors',"Transparent wallpaper", 'mediaoutputpattern', "real-time (reaction&response) VortexApplicationFeatures,VortexApplicationFeatures",
+    PropertyModification:buildtoString(reconstructstruct); 
+    class :global;
+    SettingModifier:system configuration SettingModifier('')string;
+    Function:{  Listen&Watch; 
+    ModifiedFeatureslisten(focus):Vortex.app, 
+    modifiedFeatureProperty(scope): 'media output',"sensors", watch(scope):'sensors', "TempatureChanges(aura_reader.app)Detected", 'ImagesProjected(thermal imaging)',continous"real-time"(home&lock screen)activity;
+ Method{ 'bind&merge_applicationCache"Features",
+    variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss,nfc,gyroscope,light sensors, step sensors, significant motions, raditions detection, x,y,z axis sensors, gps, location;
+    PrimaryApplication: Vortex.app;
+    DependancyApplications:
+    array#[ Advanced Tools_app(device sensors),Live wallpaper_app,PowerAmp_app,AuraReader XCamera_app,
+    ];
+ };
+    [React&Response(input&output)Method output, input, device sensor connected toolset, multi-directional,' full color spectrum', "environmental aura read graphic display":using device sensors to affect directional change, "emphasizeing" magnetic fields, radio signals, areas of high energy type elements, with a "background" of near by Thermal Energy(aura reader)Elements, ];
+ };
+     FeatureModifierControllerProperty: 'Feature controller menu setting',
+    variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss,nfc,gyroscope,light sensors, step sensors, significant motions, raditions detection, 3d 2d axis sensors, gps, location;
+    }
+  };
+  }}
+ ") ]} />,
+ >
+ < ---(parent)
+#1eabce11. 
+[{("
+generate ssl ket:
+("");
+value: application ssl "container"
+[import T-UI  from 'device application drawer',]
+[import Vortex from 'Vortex',
+[import Advanced Tools from 'device application drawer',]
+[import Live Wallpaper from 'device application drawer',]
+[import PowerAmp from 'device application drawer',]
+[import Aura Reader XCamera from 'device application drawer',]
+
+
+Function {
+CreateProperty {
+Diff;
+value: debug; Dashboard classes: {
+local;
+CreatePropertyelementopertyelement: {
+Application: 'Vortex', "AdvancedTools", 'live wallpaper', "PowerAmp", 'Aura ReaderXCamera', "T-UI",
+}
+Focus: ApplicationCache  "Features'
+ApplicationFeatures[scope: 'Device Sensors', "Transparent wallpaper", 'mediaoutputpattern', "real-time (reaction&response) VortexApplicationFeatures,VortexApplicationFeatures",
+system launcher class home,];
+PropertyModification: buildtoString(reconstructstruct);
+class: global;
+SettingModifier: system configuration SettingModifier('')string;
+Function: {
+Listen&Watch;
+ModifiedFeatureslisten(focus): Vortex.app,
+modifiedFeatureProperty(scope): 'media output', "sensors", watch(scope): 'sensors', "TempatureChanges(aura_reader.app)Detected", 'ImagesProjected(thermal imaging)', continous"real-time"(home&lock screen)activity, "Home launcher background modification";
+Method {
+  'bind&merge_applicationCache"Features",
+  variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss, nfc, gyroscope, light sensors, step sensors, significant motions, raditions detection, x, y, z axis sensors, gps, location, replace "home application style";
+  PrimaryApplication: Vortex.app;
+  DependancyApplications:
+  array#[Advanced Tools_app(device sensors), Live wallpaper_app, PowerAmp_app, AuraReader XCamera_app,
+    T-UI;];
+};
+  [React&Response(input&output)Method output, input, device sensor connected toolset, multi-directional, ' full color spectrum', "environmental aura read graphic display": using device sensors to affect directional change, "emphasizeing" magnetic fields, radio signals, areas of high energy type elements, with a "background" of near by Thermal Energy(aura reader)Elements, "apply wallpaper modification reconstructstruct [scope:"t-ui" background];
+};
+FeatureModifierControllerProperty: 'Feature controller menu setting',
+variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss, nfc, gyroscope, light sensors, step sensors, significant motions, raditions detection, 3d 2d axis sensors, gps, location;
+}
+AddModificationstyleMethod: Terminal editor (amole) element in "t-ui" home launcher application "react&respond"feature to "t-ui" launcher as terminal"custom" background;
+propertysetting"NuWallpaper".app: "allow" to "display over t-ui background style";
+value: "t-ui " default device system( >)setting with "vortex wallpaper background modification 'feature' replacing default (amoled black style default background)";
+GUI property: text characters display over background to ensure user efficient and effective usage;
+};
+[{("System update
+  }}; >
+  [import React from 'react';]
+  [import ReactDOM from 'react-dom';]
+  [import ApplicationCache from /android/data/];
+
+  Function {
+    CreateProperty {
+      Diff;
+      Dashboard classes: {
+        local;
+        CreatePropertyelementopertyelement: {
+          Application: 'Vortex', "AdvancedTools", 'live wallpaper', "PowerAmp", 'Aura ReaderXCamera'
+        }
+        Focus: ApplicationCache  "Features'
+ApplicationFeatures[scope: 'Device Sensors', "Transparent wallpaper", 'mediaoutputpattern', "real-time (reaction&response) VortexApplicationFeatures,VortexApplicationFeatures",
+PropertyModification: buildtoString(reconstructstruct);
+class: global;
+SettingModifier: system configuration SettingModifier('')string;
+Function: {
+Listen&Watch;
+ModifiedFeatureslisten(focus): Vortex.app,
+modifiedFeatureProperty(scope): 'media output', "sensors", watch(scope): 'sensors', "TempatureChanges(aura_reader.app)Detected", 'ImagesProjected(thermal imaging)', continous"real-time"(home&lock screen)activity;
+Method {
+        'bind&merge_applicationCache"Features",
+variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss, nfc, gyroscope, light sensors, step sensors, significant motions, raditions detection, x, y, z axis sensors, gps, location;
+PrimaryApplication: Vortex.app;
+DependancyApplications:
+array#[Advanced Tools_app(device sensors), Live wallpaper_app, PowerAmp_app, AuraReader XCamera_app,
+];
+};
+[React&Response(input&output)Method output, input, device sensor connected toolset, multi-directional, ' full color spectrum', "environmental aura read graphic display": using device sensors to affect directional change, "emphasizeing" magnetic fields, radio signals, areas of high energy type elements, with a "background" of near by Thermal Energy(aura reader)Elements,];
+};
+FeatureModifierControllerProperty: 'Feature controller menu setting',
+variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss, nfc, gyroscope, light sensors, step sensors, significant motions, raditions detection, 3d 2d axis sensors, gps, location;
+}
+};
+}}
+ConstrucFeatureTransitionFeatureTransition; (TransformStreamConfigurationModifier, TransformStreamConfigurationModifier,
+<Dashboard classes:{ local;
+CreatePropertyelementopertyelement: {
+Application: 'Vortex', "AdvancedTools", 'live wallpaper', "PowerAmp", 'Aura ReaderXCamera' }
+Focus: ApplicationCache  "Features'
+ApplicationFeatures[scope: 'Device Sensors', "Transparent wallpaper", 'mediaoutputpattern', "real-time (reaction&response) VortexApplicationFeatures,VortexApplicationFeatures",
+PropertyModification: buildtoString(reconstructstruct);
+class: global;
+SettingModifier: system configuration SettingModifier('')string;
+Function: { Listen&Watch;
+ModifiedFeatureslisten(focus): Vortex.app,
+modifiedFeatureProperty(scope): 'media output', "sensors", watch(scope): 'sensors', "TempatureChanges(aura_reader.app)Detected", 'ImagesProjected(thermal imaging)', continous"real-time"(home&lock screen)activity;
+Method { 'bind&merge_applicationCache"Features",
+        variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss, nfc, gyroscope, light sensors, step sensors, significant motions, raditions detection, x, y, z axis sensors, gps, location;
+        PrimaryApplication: Vortex.app;
+        DependancyApplications:
+        array#[Advanced Tools_app(device sensors), Live wallpaper_app, PowerAmp_app, AuraReader XCamera_app,
+        ];
+      };
+      [React&Response(input&output)Method output, input, device sensor connected toolset, multi-directional, ' full color spectrum', "environmental aura read graphic display": using device sensors to affect directional change, "emphasizeing" magnetic fields, radio signals, areas of high energy type elements, with a "background" of near by Thermal Energy(aura reader)Elements,];
+    };
+    FeatureModifierControllerProperty: 'Feature controller menu setting',
+    variables: accelerometer sensor, magnetometer, display sensor, proximity sensors, rss, nfc, gyroscope, light sensors, step sensors, significant motions, raditions detection, 3d 2d axis sensors, gps, location;
+  }
+};
+}}
+") ]} />,
+
+
+
